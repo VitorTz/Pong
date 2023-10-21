@@ -5,7 +5,7 @@ po::Button::Button(
     const std::string& name,
     const std::string& txt,
     std::function<void()> func
-) : po::Component(name), func(func), isSelected(false) {
+) : po::Component(name), isSelected(false), func(func){
     this->bg1.setFillColor(po::primaryColor);
     this->bg1.setSize({po::buttonDimension.x + 4, po::buttonDimension.y + 4});
     this->bg.setFillColor(po::grey);

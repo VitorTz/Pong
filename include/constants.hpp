@@ -39,12 +39,12 @@ namespace po {
     const sf::Vector2f gameFieldCpuPointsPos(po::screenWidth / 2 + 40, 20);
     
     const int gameFieldTxtSize = 32;
-    const int maxSpeed = 600;
+    const int maxSpeed = 1200;
     const double speedIncreaseUpdateRate = 0.5;
     
     const int playerSpeedUpdateRate = 7;
     const int playerInitialSpeed = 300;
-    const int ballInitialSpeed = 350;
+    const int ballInitialSpeed = 400;
 
     // buttons
     const sf::Vector2f buttonDimension(150, 40);
