@@ -3,38 +3,19 @@
 
 po::Window::Window()
 : window(
-    sf::VideoMode(po::screen_width, po::screen_height),
-    po::screen_title,
+    sf::VideoMode(po::screenWidth, po::screenHeight),
+    po::screenTitle,
     sf::Style::Close | sf::Style::Titlebar
-),
- changeScene(
-    [this](po::SceneId sceneId) {
-        if (this->scene->getSceneId() == sceneId) {
-            return;
-        }
-        delete this->scene; this->scene = nullptr;
-        switch (sceneId) {
-            case po::SceneId::Level:
-                this->scene = new po::Level(this->changeScene);
-                break;
-            case po::SceneId::Menu:
-                this->scene = new po::Menu(this->changeScene);
-                break;
-            default:
-                break;
-        }
-    }
- )
-{
-    this->window.setFramerateLimit(po::fps);
+) {
+    this->window.setFramerateLimit(po::screenFps);
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     this->window.setPosition(
         sf::Vector2i(
-            desktop.width / 2 - po::screen_width / 2,
-            desktop.height / 2 - po::screen_height / 2
+            desktop.width / 2 - po::screenWidth / 2,
+            desktop.height / 2 - po::screenHeight / 2
         )
     );
-    this->scene = new po::Level(this->changeScene);
+    this->scene = new po::Level();
 }
 
 po::Window::~Window() {
@@ -58,6 +39,7 @@ void po::Window::handleInput() {
 
 void po::Window::update() {
     double dt = this->clock.restart().asSeconds();
+    po::gameStats->updateTimeElapsed(dt);
     this->scene->update(dt);
 }
 
@@ -69,7 +51,7 @@ void po::Window::render() {
 }
 
 void po::Window::run() {
-    while (this->window.isOpen()) {
+    while (this->window.isOpen() && po::gameStats->isGameRunning()) {
         this->handleInput();
         this->update();
         this->render();

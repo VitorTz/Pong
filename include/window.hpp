@@ -2,6 +2,7 @@
 #define PONG_WINDOW_HPP
 #include <SFML/Graphics.hpp>
 #include "scene/scenes.hpp"
+#include "game_stats.hpp"
 
 
 namespace po {

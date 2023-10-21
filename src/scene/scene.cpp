@@ -1,10 +1,7 @@
 #include "../../include/scene/scene.hpp"
 
 
-po::Scene::Scene(
-    po::SceneId sceneId, 
-    std::function<void(po::SceneId)>& changeScene
-) : sceneId(sceneId), changeScene(changeScene) {
+po::Scene::Scene(po::SceneId sceneId) : sceneId(sceneId) {
 
 }
 

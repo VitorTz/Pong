@@ -8,8 +8,12 @@ namespace po {
 
     class Level : public po::Scene {
 
+        private:
+            po::Menu* menu;
+            void restartLevel();
+            
         public:
-            Level(std::function<void(po::SceneId)>& changeScene);
+            Level();            
             void update(double dt) override;
 
     };

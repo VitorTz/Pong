@@ -4,41 +4,34 @@
 
 po::GameField::GameField() 
 :   po::Component("GameField"),
-    playerPointsText("PlayerPoints", "0", po::textSize, po::playerTextPosition),
-    cpuPointsText("CpuPoints", "0", po::textSize, po::cpuTextPosition)
+    linePos(po::screenWidth / 2 - po::gameFieldLineDimension.x / 2, po::gameFieldGapBeetwenLines),
+    playerPointsText("PlayerPoints", "0", po::gameFieldTxtSize, po::gameFieldPlayerPointsPos),
+    cpuPointsText("CpuPoints", "0", po::gameFieldTxtSize, po::gameFieldCpuPointsPos),
+    timer(po::speedIncreaseUpdateRate)
  {
-    this->line.setFillColor(po::playerColor);
+    this->line.setFillColor(po::primaryColor);
     this->line.setSize(po::gameFieldLineDimension);
-    this->line.setPosition(
-        sf::Vector2f(
-            po::screen_width / 2 - po::gameFieldLineDimension.x / 2,
-            po::gameFieldLineGap
-        )
-    );
 }
 
 
 void po::GameField::update(double dt) {
-    this->playerPointsText.changeText(std::to_string(po::playerPoints));
-    this->cpuPointsText.changeText(std::to_string(po::cpuPoints));
+    if (this->timer.check()) { po::gameStats->speedUpGame(); }
+    this->playerPointsText.changeText(std::to_string(po::gameStats->getPlayerPoints()));
+    this->cpuPointsText.changeText(std::to_string(po::gameStats->getCpuPoints()));
     sf::Vector2f d = this->playerPointsText.getDimension();    
     this->playerPointsText.setPosition(
-        {po::playerTextPosition.x - d.x - 5, po::playerTextPosition.y}
+        {po::gameFieldPlayerPointsPos.x - d.x - 5, po::gameFieldPlayerPointsPos.y}
     );
 }
 
 
 void po::GameField::draw(sf::RenderWindow& window) {    
-    sf::Vector2f pos = this->line.getPosition();
-    sf::Vector2f d = this->line.getSize();
-    const float y = pos.y;
     for (int i = 0; i < 10; i++) {
+        this->line.setPosition(this->linePos);
         window.draw(this->line);
-        pos.y += d.y + po::gameFieldLineGap;
-        this->line.setPosition(pos);
+        this->linePos.y += po::gameFieldLineDimension.y + po::gameFieldGapBeetwenLines;
     }
-    pos.y = y;
-    line.setPosition(pos);
+    this->linePos.y = po::gameFieldGapBeetwenLines;
     this->playerPointsText.draw(window);
     this->cpuPointsText.draw(window);
 }

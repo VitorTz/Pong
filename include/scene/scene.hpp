@@ -1,7 +1,6 @@
 #ifndef PONG_SCENE_HPP
 #define PONG_SCENE_HPP
 #include <SFML/Graphics.hpp>
-#include <functional>
 #include <constants.hpp>
 #include <map>
 #include "../components/components.hpp"
@@ -12,12 +11,11 @@ namespace po {
     class Scene {
 
         protected:
-            po::SceneId sceneId;
-            std::function<void(po::SceneId)>& changeScene;
+            po::SceneId sceneId;            
             std::map<std::string, po::Component*> components;
         
         public:
-            Scene(po::SceneId sceneId, std::function<void(po::SceneId)>& changeScene);
+            Scene(po::SceneId sceneId);
             virtual ~Scene();
             virtual void update(double dt);
             virtual void render(sf::RenderWindow& window);

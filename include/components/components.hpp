@@ -6,5 +6,8 @@
 #include "cpu.hpp"
 #include "game_field.hpp"
 #include "text.hpp"
+#include "ball.hpp"
+#include "menu.hpp"
+
 
 #endif

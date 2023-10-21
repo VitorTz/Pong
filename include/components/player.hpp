@@ -21,11 +21,15 @@ namespace po {
             void move(double dt);
 
         public:
+
             Player();
             Player(std::string name);
             virtual void update(double dt) override;
             virtual void draw(sf::RenderWindow& window) override;
-            bool collideBall(float radius, const sf::Vector2f& pos);
+            const sf::Vector2f& getPosition();
+            sf::Vector2f getCenter();
+            float getDirection();
+            virtual void resetPos();
 
     };
     

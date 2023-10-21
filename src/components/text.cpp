@@ -12,7 +12,7 @@ po::Text::Text(
     position(position) {
     this->font.loadFromFile(po::fontPath);
     this->text.setFont(this->font);
-    this->text.setFillColor(po::playerColor);
+    this->text.setFillColor(po::primaryColor);
     this->text.setCharacterSize(size);
     this->text.setPosition(position);
     this->changeText(text);
