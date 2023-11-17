@@ -1,65 +1,48 @@
-#ifndef PONG_CONSTANTS_HPP
-#define PONG_CONSTANTS_HPP
-#include <SFML/Graphics.hpp>
+#ifndef OUGI_CONSTANTS_HPP
+#define OUGI_CONSTANTS_HPP
+#include <SFML/System/Vector2.hpp>
+#include <map>
 #include <string>
+#include "color.hpp"
 
 
-namespace po {
+namespace og {
 
-
-    // window
-    const int screenWidth = 1280;
-    const int screenHeight = 720;
-    const sf::Vector2f screenSize(screenWidth, screenHeight);
-    const std::string screenTitle = "Pong!";
-    const sf::Vector2f screenCenter(screenWidth / 2, screenHeight / 2);
-    const int screenFps = 120;
-
-    // colors 
-    const sf::Color primaryColor = sf::Color::White;
-    const sf::Color secondaryColor = sf::Color::Black;
-    const sf::Color grey(41, 42, 51);
-    const sf::Color grey1(79, 78, 79);
-    const sf::Color windowBgColor = sf::Color::Black;
-
-    // dimensions
-    const sf::Vector2f playerDimension(30, 100);
-    const float ballRadius = 10.f;
-
-    // keys
-    const sf::Keyboard::Key upKey = sf::Keyboard::Up;
-    const sf::Keyboard::Key downKey = sf::Keyboard::Down;
-    const sf::Keyboard::Key selectKey = sf::Keyboard::Space;
-    const sf::Keyboard::Key menuKey = sf::Keyboard::Escape;
-
-    // GameField
-    const sf::Vector2f gameFieldLineDimension(10, 50);
-    const int gameFieldGapBeetwenLines = 20;
-    const sf::Vector2f gameFieldPlayerPointsPos(po::screenWidth / 2 - 40, 20);
-    const sf::Vector2f gameFieldCpuPointsPos(po::screenWidth / 2 + 40, 20);
+    // screen
+    const int SCREEN_WIDTH = 1080;
+    const int SCREEN_HEIGHT = 620;
+    const sf::Vector2f SCREEN_SIZE(SCREEN_WIDTH, SCREEN_HEIGHT);
+    const sf::Vector2f SCREEN_CENTER(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    const sf::Color SCREEN_COLOR = og::Color::Black;
+    const std::string SCREEN_TITLE = "Pong";
+    const std::string SCREEN_ICON = "res/icon/icon.png";
+    const int FPS = 60;
     
-    const int gameFieldTxtSize = 32;
-    const int maxSpeed = 1200;
-    const double speedIncreaseUpdateRate = 0.5;
-    
-    const int playerSpeedUpdateRate = 7;
-    const int playerInitialSpeed = 300;
-    const int ballInitialSpeed = 400;
+    // keyboard
+    const int KEYBOARD_STRING_VALUE_MAX_LENGTH = 256;
 
-    // buttons
-    const sf::Vector2f buttonDimension(150, 40);
-    const int gapBeetwenButtons = 20;
-    
-    // resources
-    const std::string fontPath = "res/font/Roboto-Regular.ttf";
+    // Player
+    const sf::Color PLAYER_COLOR = og::Color::White;
+    const double PLAYER_SPEED = 250;
+    const sf::Vector2f PLAYER_DIMENSION(30, 120);
+    const sf::Vector2f PLAYER_POS(
+        og::SCREEN_WIDTH - og::PLAYER_DIMENSION.x,
+        og::SCREEN_HEIGHT / 2 - og::PLAYER_DIMENSION.y / 2
+    );
 
-    // enum
-    enum class SceneId {
-        Level,
-        Menu
-    };
+
+    namespace Keys {
+        
+        const sf::Keyboard::Key UP = sf::Keyboard::Key::Up;
+        const sf::Keyboard::Key DOWN = sf::Keyboard::Key::Down;
+
+    } // namespace Keys
+
+
+
     
-} // namespace po
+
+} // namespace og
 
 
 

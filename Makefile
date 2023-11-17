@@ -4,10 +4,11 @@ LDFLAGS  := -L/usr/lib -lstdc++ -lm -lsfml-graphics -lsfml-window -lsfml-system
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
-TARGET   := pong
+TARGET   := main
 INCLUDE  := -Iinclude/
 SRC      :=                      \
    $(wildcard src/*/*.cpp) \
+   $(wildcard src/*/*/*.cpp) \
    $(wildcard src/*.cpp) \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)

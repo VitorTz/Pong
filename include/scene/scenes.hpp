@@ -1,5 +1,5 @@
-#ifndef PONG_SCENES_HPP
-#define PONG_SCENES_HPP
+#ifndef OUGI_SCENES_HPP
+#define OUGI_SCENES_HPP
 
 
 #include "scene.hpp"

@@ -1,54 +1,66 @@
 #include "../../include/scene/scene.hpp"
 
 
-po::Scene::Scene(po::SceneId sceneId) : sceneId(sceneId) {
+
+og::Scene::Scene(
+    const og::SceneId& sceneId,
+    const std::function<void(const og::SceneId&)> changeScene
+) : sceneId(sceneId), changeScene(changeScene) {
 
 }
 
 
-po::Scene::~Scene() {
-    for (auto& pair : this->components) {
+
+og::Scene::~Scene() {
+    for (auto& pair : this->gameObjs) {
+        std::cout << "Deleting GameObj " << pair.second->getName() << '\n';
         delete pair.second;
     }
-    this->components.clear();
+    this->gameObjs.clear();
 }
 
 
-void po::Scene::addComponent(po::Component* component) {
-    this->components.insert({component->getName(), component});
+void og::Scene::addGameObj(og::GameObj* gameObj) {
+    this->gameObjs.insert({gameObj->getName(), gameObj});
+    this->camera.add(gameObj);
 }
 
 
-void po::Scene::rmvComponent(const std::string& name) {
-    if (this->components.find(name) != this->components.end()) {
-        po::Component* c = this->components.at(name);
-        delete c;
-        this->components.erase(name);
+void og::Scene::rmvGameObj(const std::string& name) {
+    try {
+        og::GameObj* g = this->gameObjs.at(name);
+        this->camera.rmv(g);
+        this->gameObjs.erase(name);
+        delete g;
+    } catch(const std::out_of_range& e) {
+        return;
     }
+    
 }
 
 
-po::Component* po::Scene::getComponent(const std::string& name) {
-    if (this->components.find(name) != this->components.end()) {
-        return this->components.at(name);
+og::GameObj* og::Scene::getGameObj(const std::string& name) {
+    try {
+        return this->gameObjs.at(name);
+    } catch(const std::out_of_range& e) {
+        return nullptr;
     }
-    return nullptr;
+    
 }
 
 
-void po::Scene::update(double dt) {
-    for (auto& pair : this->components) {
+void og::Scene::update(const double dt) {
+    for (auto& pair : this->gameObjs) {
         pair.second->update(dt);
     }
 }
 
-void po::Scene::render(sf::RenderWindow& window) {
-    for (auto& pair : this->components) {
-        pair.second->draw(window);
-    }
+
+void og::Scene::draw(sf::RenderWindow& window) {
+    this->camera.draw(window);   
 }
 
 
-po::SceneId& po::Scene::getSceneId() {
+const og::SceneId& og::Scene::getSceneId() {
     return this->sceneId;
 }

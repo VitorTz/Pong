@@ -1,8 +1,9 @@
-#include "../include/window.hpp"
+#include "../include/window/window.hpp"
 
 
-int main() {
-    po::Window w;
-    w.run();
+int main() {   
+    og::Window* w = og::Window::getInstance();
+    w->run();
+    delete w;
     return 0;
 }

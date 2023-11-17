@@ -1,24 +1,22 @@
-#ifndef PONG_LEVEL_HPP
-#define PONG_LEVEL_HPP
+#ifndef OUGI_LEVEL_HPP
+#define OUGI_LEVEL_HPP
 #include "scene.hpp"
 
 
-namespace po {
+
+namespace og {
 
 
-    class Level : public po::Scene {
+    class Level : public og::Scene {
 
-        private:
-            po::Menu* menu;
-            void restartLevel();
-            
         public:
-            Level();            
-            void update(double dt) override;
+            Level(
+                const std::function<void(const og::SceneId&)> changeScene
+            );
 
     };
     
-} // namespace po
+} // namespace og
 
 
 #endif
